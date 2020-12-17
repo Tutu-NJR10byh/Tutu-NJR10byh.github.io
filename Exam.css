@@ -28,7 +28,8 @@
   width: 200px;
   height: 30px;
   border: 0;
-  border-bottom: 1px solid #c7c6c6;
+  outline: none;
+  border-bottom: 1px solid #eaeaea;
   margin-left: 5px;
   padding: 2px 10px;
   font-size: 15px;
