@@ -117,3 +117,16 @@
   margin: 30px auto;
   padding: 0 0 0 5px;
 }
+#Outside #result {
+  width: 70%;
+  padding: 10px 0;
+  border: 3px solid #fdcb6e;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+  opacity: 0;
+  transition: 3s;
+}
