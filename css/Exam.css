@@ -21,6 +21,10 @@
   align-items: center;
   margin-top: 20px;
 }
+.container .box #topimg {
+  filter: blur(0px);
+  transition: 1.5s;
+}
 .container .box .user {
   border: 2px solid #1296db;
   border-radius: 10px;
