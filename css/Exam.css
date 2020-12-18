@@ -91,7 +91,6 @@
   font-weight: bold;
   margin-top: 20px;
   opacity: 0;
-  transform: scaleY(-20px);
   transition: 2s ease-in;
 }
 #Outside .Item {
