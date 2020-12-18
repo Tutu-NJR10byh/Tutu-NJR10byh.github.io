@@ -53,6 +53,7 @@ function submit() {
       return false;
     }
   }
+  $("#btn").attr("disabled", true);
   var right_number = 0; //计算答对的题数；
   for (var i = 0; i < questionArray.length; i++) {
     if (aryAns[i] == resultArray[i]) {
