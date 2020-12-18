@@ -8,7 +8,7 @@
     <script src="./js/jquery.js"></script>
     <script src="./js/Exam.js"></script>
   </head>
-  <body>
+  <body onclick="Backtopimg()">
     <div id="loginpage" class="container">
       <div class="box">
         <div class="text">
@@ -17,16 +17,25 @@
             alt="请登录"
             width="100%"
             height="220px"
+            id="topimg"
           />
         </div>
         <div class="user">
           <div class="username">
             <img src="./img/username.png" width="20px" height="20px" />
-            <input type="text" placeholder="请输入用户名" />
+            <input
+              type="text"
+              placeholder="请输入用户名"
+              onclick="ChangeTopimg1()"
+            />
           </div>
           <div class="password">
             <img src="./img/password.png" width="20px" height="20px" />
-            <input type="password" placeholder="请输入密码" />
+            <input
+              type="password"
+              placeholder="请输入密码"
+              onclick="ChangeTopimg2()"
+            />
           </div>
         </div>
         <button type="submit" onclick="Tologin()">
