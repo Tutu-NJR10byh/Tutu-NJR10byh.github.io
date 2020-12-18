@@ -1,10 +1,26 @@
 var timer = null;
+
+// index.html
 function Tologin() {
   document.getElementById("loginpage").style.opacity = "0";
   setTimeout(() => {
     window.location.replace("./pages/loading.html");
   }, 800);
 }
+function ChangeTopimg1() {
+  event.stopPropagation();
+  document.getElementById("topimg").style.filter = "blur(3px)";
+}
+function ChangeTopimg2() {
+  event.stopPropagation();
+  document.getElementById("topimg").style.filter = "blur(3px)";
+}
+function Backtopimg() {
+  // console.log("aaa");
+  document.getElementById("topimg").style.filter = "blur(0px)";
+}
+
+// Exam.html
 function Show() {
   document.getElementById("Outside").style.opacity = "1";
   // console.log("aaa");
