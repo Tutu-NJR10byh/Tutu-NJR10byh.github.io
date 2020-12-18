@@ -7,7 +7,10 @@
     <style>
       * {
         height: 100%;
+        margin: 0;
+        padding: 0;
       }
+
       #Box {
         /* border: 1px solid red; */
         width: 100%;
@@ -18,7 +21,25 @@
         opacity: 0;
         transition: 0.8s;
       }
-      button {
+      #Box .inside {
+        /* border: 1px solid red; */
+        width: 80%;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #Box .inside .text {
+        /* border: 1px solid red; */
+        height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      #Box .inside .text #chance {
+        color: red;
+      }
+      #Box .inside button {
         width: 40%;
         height: 50px;
         font-size: 20px;
@@ -35,7 +56,12 @@
   </head>
   <body onload="show()">
     <div id="Box">
-      <button onclick="start()">开始答题</button>
+      <div class="inside">
+        <button onclick="start()">开始答题</button>
+        <div class="text">
+          <p>答题次数剩余: <span id="chance">2</span> 次</p>
+        </div>
+      </div>
     </div>
   </body>
   <script>
