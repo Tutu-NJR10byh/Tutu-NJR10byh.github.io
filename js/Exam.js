@@ -45,6 +45,7 @@ function submit() {
 
   //aryAns[]是从后端返回的数组,当点击交卷的时候,向后端请求正确答案的数组,赋值给aryAns[]即可;
   var aryAns = new Array(4, 3, 4, 3, 2); //建立储存正确答案的数组
+  var answer = new Array("D", "C", "D", "C", "B");
   for (var i = 0; i < questionArray.length; i++) {
     if (Name(questionArray[i]) != 10) {
       resultArray[i] = Name(questionArray[i]);
@@ -69,7 +70,7 @@ function submit() {
     if (rightArray[i] == 1) {
       right_question += i + 1 + ",";
     } else {
-      error_question += i + 1 + ",";
+      error_question += i + 1 + "(" + answer[i] + ")" + ",";
     }
   }
   document.getElementById("Fen").innerText = right_number * 5;
