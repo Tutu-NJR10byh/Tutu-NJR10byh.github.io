@@ -24,7 +24,8 @@ function Backtopimg() {
 function Show() {
   document.getElementById("Outside").style.opacity = "1";
   // console.log("aaa");
-  var m = 1;
+  document.getElementById("time").style.opacity = "1";
+  var m = 10;
   var s = 10;
   timer = setInterval(function () {
     if (m >= 0) {
@@ -55,13 +56,75 @@ function two_char(n) {
 
 function submit() {
   clearInterval(timer);
-  var questionArray = new Array("Q1", "Q2", "Q3", "Q4", "Q5");
+  var questionArray = new Array(
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "Q5",
+    "Q6",
+    "Q7",
+    "Q8",
+    "Q9",
+    "Q10",
+    "Q11",
+    "Q12",
+    "Q13",
+    "Q14",
+    "Q15",
+    "Q16",
+    "Q17",
+    "Q18",
+    "Q19",
+    "Q20"
+  );
   var resultArray = new Array();
   var rightArray = new Array();
 
-  //aryAns[]是从后端返回的数组,当点击交卷的时候,向后端请求正确答案的数组,赋值给aryAns[]即可;
-  var aryAns = new Array(4, 3, 4, 3, 2); //建立储存正确答案的数组
-  var answer = new Array("D", "C", "D", "C", "B");
+  var aryAns = new Array(
+    1,
+    2,
+    3,
+    1,
+    3,
+    4,
+    2,
+    2,
+    1,
+    3,
+    1,
+    2,
+    3,
+    2,
+    4,
+    2,
+    1,
+    1,
+    -1,
+    -2
+  ); //正确答案的数组
+  var answer = new Array(
+    "A",
+    "B",
+    "C",
+    "A",
+    "C",
+    "D",
+    "B",
+    "B",
+    "A",
+    "C",
+    "A",
+    "B",
+    "C",
+    "B",
+    "D",
+    "B",
+    "A",
+    "A",
+    "ABC",
+    "ABCE"
+  );
   for (var i = 0; i < questionArray.length; i++) {
     if (Name(questionArray[i]) != 10) {
       resultArray[i] = Name(questionArray[i]);
@@ -70,14 +133,30 @@ function submit() {
       return false;
     }
   }
+  console.log(resultArray);
   $("#btn").attr("disabled", true);
   var right_number = 0; //计算答对的题数；
   for (var i = 0; i < questionArray.length; i++) {
-    if (aryAns[i] == resultArray[i]) {
-      right_number++;
-      rightArray[i] = 1;
+    if (aryAns[i] == -1 || aryAns[i] == -2) {
+      //多选
+      switch (aryAns[i]) {
+        case -1:
+          console.log(-1);
+          break;
+        case -2:
+          console.log(-2);
+          break;
+        default:
+          break;
+      }
     } else {
-      rightArray[i] = 0;
+      // 单选
+      if (aryAns[i] == resultArray[i]) {
+        right_number++;
+        rightArray[i] = 1;
+      } else {
+        rightArray[i] = 0;
+      }
     }
   }
   var right_question = " ";
@@ -100,11 +179,15 @@ function submit() {
   document.getElementById("result").style.opacity = "1";
 }
 
+// 检测题目是否作答
 function Name(name) {
   var temp = document.getElementsByName(name);
+  // console.log(temp);
   var intHot = 9;
   for (var i = 0; i < temp.length; i++) {
-    if (temp[i].checked) intHot = temp[i].value;
+    if (temp[i].checked) {
+      intHot = temp[i].value;
+    }
   }
   if (intHot == 9) {
     return 10;
