@@ -25,8 +25,8 @@ function Show() {
   document.getElementById("Outside").style.opacity = "1";
   // console.log("aaa");
   document.getElementById("time").style.opacity = "1";
-  var m = 10;
-  var s = 10;
+  var m = 30;
+  var s = 0;
   timer = setInterval(function () {
     if (m >= 0) {
       if (s < 10) {
