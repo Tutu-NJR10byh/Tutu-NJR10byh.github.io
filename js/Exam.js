@@ -80,29 +80,9 @@ function submit() {
   );
   var resultArray = new Array();
   var rightArray = new Array();
+  var right_number = 0; //计算答对的题数；
 
-  var aryAns = new Array(
-    1,
-    2,
-    3,
-    1,
-    3,
-    4,
-    2,
-    2,
-    1,
-    3,
-    1,
-    2,
-    3,
-    2,
-    4,
-    2,
-    1,
-    1,
-    -1,
-    -2
-  ); //正确答案的数组
+  var aryAns = new Array(1, 2, 3, 1, 3, 4, 2, 2, 1, 3, 1, 2, 3, 2, 4, 2, 1, 1); //正确答案的数组
   var answer = new Array(
     "A",
     "B",
@@ -126,37 +106,53 @@ function submit() {
     "ABCE"
   );
   for (var i = 0; i < questionArray.length; i++) {
-    if (Name(questionArray[i]) != 10) {
-      resultArray[i] = Name(questionArray[i]);
-    } else {
+    if (Name(questionArray[i])) {
       alert("第 " + (i + 1) + " 题 " + " 您未作答 !!");
       return false;
+    } else {
+      if (questionArray[i] != "Q19" && questionArray[i] != "Q20") {
+        resultArray[i] = Name1(questionArray[i]);
+      } else {
+        if (questionArray[i] == "Q19") {
+          let userresult = "";
+          let result1 = Name2(questionArray[i]);
+          console.log(result1.length);
+          for (var j = 0; j < result1.length; j++) {
+            userresult += result1[j];
+          }
+          console.log(userresult);
+          if (userresult == "123") {
+            right_number++;
+            rightArray[18] = 1;
+          } else {
+            rightArray[18] = 0;
+          }
+        } else if (questionArray[i] == "Q20") {
+          let userresult = "";
+          let result2 = Name2(questionArray[i]);
+          console.log(result2.length);
+          for (var j = 0; j < result2.length; j++) {
+            userresult += result2[j];
+          }
+          console.log(userresult);
+          if (userresult == "1235") {
+            right_number++;
+            rightArray[19] = 1;
+          } else {
+            rightArray[19] = 0;
+          }
+        }
+      }
     }
   }
-  console.log(resultArray);
   $("#btn").attr("disabled", true);
-  var right_number = 0; //计算答对的题数；
-  for (var i = 0; i < questionArray.length; i++) {
-    if (aryAns[i] == -1 || aryAns[i] == -2) {
-      //多选
-      switch (aryAns[i]) {
-        case -1:
-          console.log(-1);
-          break;
-        case -2:
-          console.log(-2);
-          break;
-        default:
-          break;
-      }
+  for (var i = 0; i < questionArray.length - 2; i++) {
+    // 单选
+    if (aryAns[i] == resultArray[i]) {
+      right_number++;
+      rightArray[i] = 1;
     } else {
-      // 单选
-      if (aryAns[i] == resultArray[i]) {
-        right_number++;
-        rightArray[i] = 1;
-      } else {
-        rightArray[i] = 0;
-      }
+      rightArray[i] = 0;
     }
   }
   var right_question = " ";
@@ -165,7 +161,7 @@ function submit() {
     if (rightArray[i] == 1) {
       right_question += i + 1 + ",";
     } else {
-      error_question += i + 1 + "(" + answer[i] + ")" + ",";
+      error_question += i + 1 + "(" + answer[i] + ")" + ", ";
     }
   }
   document.getElementById("Fen").innerText = right_number * 5;
@@ -181,16 +177,36 @@ function submit() {
 
 // 检测题目是否作答
 function Name(name) {
-  var temp = document.getElementsByName(name);
-  // console.log(temp);
-  var intHot = 9;
+  let temp = document.getElementsByName(name);
+  let flag = true;
+  for (var i = 0; i < temp.length; i++) {
+    if (temp[i].checked) {
+      flag = false;
+    }
+  }
+  if (flag) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function Name1(name) {
+  let temp = document.getElementsByName(name);
+  let intHot = 10;
   for (var i = 0; i < temp.length; i++) {
     if (temp[i].checked) {
       intHot = temp[i].value;
     }
   }
-  if (intHot == 9) {
-    return 10;
-  }
   return intHot;
+}
+function Name2(name) {
+  let temp = document.getElementsByName(name);
+  let result = new Array();
+  for (var i = 0; i < temp.length; i++) {
+    if (temp[i].checked) {
+      result.push(temp[i].value);
+    }
+  }
+  return result;
 }
