@@ -1,3 +1,4 @@
+var timer = null;
 function Tologin() {
   document.getElementById("loginpage").style.opacity = "0";
   setTimeout(() => {
@@ -6,10 +7,10 @@ function Tologin() {
 }
 function Show() {
   document.getElementById("Outside").style.opacity = "1";
-  console.log("aaa");
+  // console.log("aaa");
   var m = 1;
   var s = 10;
-  var timer = setInterval(function () {
+  timer = setInterval(function () {
     if (m >= 0) {
       if (s < 10) {
         $("#time").html("剩余时间: " + "&nbsp" + m + ":0" + s);
@@ -20,6 +21,7 @@ function Show() {
         alert("答题时间仅剩 1 分钟，时间到题目将自动提交！！");
       }
       if (m == 0 && s <= 0) {
+        submit();
         alert("时间到，题目已自动提交！");
         clearInterval(timer);
       }
@@ -36,6 +38,7 @@ function two_char(n) {
 }
 
 function submit() {
+  clearInterval(timer);
   var questionArray = new Array("Q1", "Q2", "Q3", "Q4", "Q5");
   var resultArray = new Array();
   var rightArray = new Array();
@@ -50,31 +53,33 @@ function submit() {
       return false;
     }
   }
-  // var right_number = 0; //计算答对的题数；
-  // for (var i = 0; i < questionArray.length; i++) {
-  //   if (aryAns[i] == resultArray[i]) {
-  //     right_number++;
-  //     rightArray[i] = 1;
-  //   } else {
-  //     rightArray[i] = 0;
-  //   }
-  // }
-  // var right_question = " ";
-  // var error_question = " ";
-  // for (var i = 0; i < rightArray.length; i++) {
-  //   if (rightArray[i] == 1) {
-  //     right_question += i + 1 + ",";
-  //   } else {
-  //     error_question += i + 1 + ",";
-  //   }
-  // }
-  // document.getElementById("right_number").innerText = right_number;
-  // if (right_question != " ") {
-  //   document.getElementById("right_question").innerText = right_question;
-  // }
-  // if (error_question != " ") {
-  //   document.getElementById("error_question").innerText = error_question;
-  // }
+  var right_number = 0; //计算答对的题数；
+  for (var i = 0; i < questionArray.length; i++) {
+    if (aryAns[i] == resultArray[i]) {
+      right_number++;
+      rightArray[i] = 1;
+    } else {
+      rightArray[i] = 0;
+    }
+  }
+  var right_question = " ";
+  var error_question = " ";
+  for (var i = 0; i < rightArray.length; i++) {
+    if (rightArray[i] == 1) {
+      right_question += i + 1 + ",";
+    } else {
+      error_question += i + 1 + ",";
+    }
+  }
+  document.getElementById("Fen").innerText = right_number * 5;
+  document.getElementById("right_number").innerText = right_number;
+  if (right_question != " ") {
+    document.getElementById("right_question").innerText = right_question;
+  }
+  if (error_question != " ") {
+    document.getElementById("error_question").innerText = error_question;
+  }
+  document.getElementById("result").style.opacity = "1";
 }
 
 function Name(name) {
