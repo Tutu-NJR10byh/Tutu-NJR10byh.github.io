@@ -81,12 +81,18 @@
   opacity: 0;
   transition: 0.8s;
 }
+#Outside .title {
+  margin-top: 20px;
+}
 #Outside #time {
   /* border: 1px solid red; */
   color: red;
   font-size: 25px;
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 20px;
+  opacity: 0;
+  transform: scaleY(-20px);
+  transition: 2s ease-in;
 }
 #Outside .Item {
   border-top: 1px solid #e0e0e0;
