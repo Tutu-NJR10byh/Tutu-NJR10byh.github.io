@@ -1,5 +1,5 @@
 var timer = null;
-
+var teacherId = "";
 // index.html
 function Tologin() {
   let name = document.getElementById("name").value;
@@ -15,8 +15,9 @@ function Tologin() {
       if (res.data.code == 0) {
         alert("登录成功!");
         document.getElementById("loginpage").style.opacity = "0";
+        let url = "./pages/loading.html" + "?" + "teacherId=" + number;
         setTimeout(() => {
-          window.location.replace("./pages/loading.html");
+          window.location.replace(url);
         }, 800);
       } else if (res.data.code == 1) {
         alert(res.data.errMessage);
@@ -38,6 +39,7 @@ function Backtopimg() {
 
 // Exam.html
 function Show() {
+  teacherId = location.href.split("=")[1];
   document.getElementById("Outside").style.opacity = "1";
   // console.log("aaa");
   document.getElementById("time").style.opacity = "1";
@@ -51,9 +53,9 @@ function Show() {
         $("#time").html("剩余时间: " + "&nbsp" + m + ":" + s);
       }
       if (m == 1 && s == 0) {
-        alert("答题时间仅剩 1 分钟，时间到题目将自动提交！！");
+        alert("答题时间仅剩 3 分钟，时间到题目将自动提交！！");
       }
-      if (m == 0 && s <= 0) {
+      if (m == 0 && s == 0) {
         submit();
         alert("时间到，题目已自动提交！");
         clearInterval(timer);
@@ -70,6 +72,7 @@ function two_char(n) {
   return n >= 10 ? n : "0" + n;
 }
 
+// 提交分数
 function submit() {
   clearInterval(timer);
   var questionArray = new Array(
@@ -177,7 +180,17 @@ function submit() {
       error_question += i + 1 + "(" + answer[i] + ")" + ", ";
     }
   }
-  document.getElementById("Fen").innerText = right_number * 5;
+  let Fen = right_number * 5;
+  // 上传分数
+  axios
+    .post("http://101.132.192.32/teacher/upScore", {
+      teacherId: teacherId,
+      score: Fen,
+    })
+    .then((res) => {
+      console.log(res);
+    });
+  document.getElementById("Fen").innerText = Fen;
   document.getElementById("right_number").innerText = right_number;
   if (error_question != " ") {
     document.getElementById("error_question").innerText = error_question;

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NJR10byh Tutu</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
     <style>
       * {
         height: 100%;
@@ -39,6 +40,21 @@
       #Box .inside .text #chance {
         color: red;
       }
+      #Box .inside .text #history1,
+      #history2,
+      #history3 {
+        margin-top: 5px;
+        color: #999;
+        font-size: 16px;
+        opacity: 0;
+        transition: 1s;
+      }
+      #Box .inside .text #history1info,
+      #history2info,
+      #history3info {
+        color: #000;
+        font-weight: bold;
+      }
       #Box .inside button {
         width: 40%;
         height: 50px;
@@ -59,19 +75,41 @@
       <div class="inside">
         <button onclick="start()">开始答题</button>
         <div class="text">
-          <p>答题次数剩余: <span id="chance">2</span> 次</p>
+          <p>答题次数剩余: <span id="chance"></span> 次</p>
+          <p id="history1">最高分: <span id="history1info"></span> 分</p>
         </div>
       </div>
     </div>
   </body>
   <script>
+    var teacherId = "";
     function show() {
+      // console.log(location.href);
+      teacherId = location.href.split("=")[1];
+      axios
+        .post("http://101.132.192.32/teacher/queExamineCounter", {
+          teacherId: location.href.split("=")[1],
+        })
+        .then((res1) => {
+          // console.log(res);
+          axios
+            .post("http://101.132.192.32/teacher/queScore", {
+              teacherId: teacherId,
+            })
+            .then((res2) => {
+              document.getElementById("history1info").innerHTML =
+                res2.data.data;
+              document.getElementById("history1").style.opacity = "1";
+            });
+          document.getElementById("chance").innerHTML = res1.data.data;
+        });
       document.getElementById("Box").style.opacity = "1";
     }
     function start() {
       document.getElementById("Box").style.opacity = "0";
       setTimeout(() => {
-        window.location.replace("./Exam.html");
+        let url = "./Exam.html" + "?" + "teacherId=" + teacherId;
+        window.location.replace(url);
       }, 800);
     }
   </script>
