@@ -2,10 +2,26 @@ var timer = null;
 
 // index.html
 function Tologin() {
-  document.getElementById("loginpage").style.opacity = "0";
-  setTimeout(() => {
-    window.location.replace("./pages/loading.html");
-  }, 800);
+  let name = document.getElementById("name").value;
+  let number = document.getElementById("number").value;
+  console.log(name, number);
+  axios
+    .post("http://101.132.192.32/teacher/Login", {
+      teacherName: name,
+      teacherId: number,
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.data.code == 0) {
+        alert("登录成功!");
+        document.getElementById("loginpage").style.opacity = "0";
+        setTimeout(() => {
+          window.location.replace("./pages/loading.html");
+        }, 800);
+      } else if (res.data.code == 1) {
+        alert(res.data.errMessage);
+      }
+    });
 }
 function ChangeTopimg1() {
   event.stopPropagation();
@@ -155,20 +171,14 @@ function submit() {
       rightArray[i] = 0;
     }
   }
-  var right_question = " ";
   var error_question = " ";
   for (var i = 0; i < rightArray.length; i++) {
-    if (rightArray[i] == 1) {
-      right_question += i + 1 + ",";
-    } else {
+    if (rightArray[i] == 0) {
       error_question += i + 1 + "(" + answer[i] + ")" + ", ";
     }
   }
   document.getElementById("Fen").innerText = right_number * 5;
   document.getElementById("right_number").innerText = right_number;
-  if (right_question != " ") {
-    document.getElementById("right_question").innerText = right_question;
-  }
   if (error_question != " ") {
     document.getElementById("error_question").innerText = error_question;
   }
