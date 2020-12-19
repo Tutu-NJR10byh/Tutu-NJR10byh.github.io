@@ -1,9 +1,12 @@
 var timer = null;
 var teacherId = "";
+var chance = "";
 // index.html
 function Tologin() {
   let name = document.getElementById("name").value;
-  let number = document.getElementById("number").value;
+  var number = document.getElementById("number").value;
+  teacherId = document.getElementById("number").value;
+  console.log(teacherId);
   console.log(name, number);
   axios
     .post("http://101.132.192.32/teacher/Login", {
@@ -39,7 +42,11 @@ function Backtopimg() {
 
 // Exam.html
 function Show() {
-  teacherId = location.href.split("=")[1];
+  teacherId = location.href.split("=")[1].split("&")[0];
+  chance = location.href.split("=")[2];
+  if (chance == 0) {
+    document.getElementById("btntext").innerHTML = "查看答案";
+  }
   document.getElementById("Outside").style.opacity = "1";
   // console.log("aaa");
   document.getElementById("time").style.opacity = "1";
@@ -188,7 +195,7 @@ function submit() {
       score: Fen,
     })
     .then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   document.getElementById("Fen").innerText = Fen;
   document.getElementById("right_number").innerText = right_number;
@@ -213,6 +220,7 @@ function Name(name) {
     return false;
   }
 }
+// 单选
 function Name1(name) {
   let temp = document.getElementsByName(name);
   let intHot = 10;
@@ -223,6 +231,7 @@ function Name1(name) {
   }
   return intHot;
 }
+// 多选
 function Name2(name) {
   let temp = document.getElementsByName(name);
   let result = new Array();
@@ -232,4 +241,13 @@ function Name2(name) {
     }
   }
   return result;
+}
+// 返回
+function back() {
+  console.log(teacherId);
+  document.getElementById("Outside").style.opacity = "0";
+  let url = "../pages/loading.html" + "?" + "teacherId=" + teacherId;
+  setTimeout(() => {
+    window.location.replace(url);
+  }, 800);
 }
