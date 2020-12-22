@@ -6,26 +6,38 @@ function Tologin() {
   let name = document.getElementById("name").value;
   var number = document.getElementById("number").value;
   teacherId = document.getElementById("number").value;
-  console.log(teacherId);
-  console.log(name, number);
-  axios
-    .post("http://101.132.192.32/teacher/Login", {
-      teacherName: name,
-      teacherId: number,
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.data.code == 0) {
-        alert("登录成功!");
-        document.getElementById("loginpage").style.opacity = "0";
-        let url = "./pages/loading.html" + "?" + "teacherId=" + number;
-        setTimeout(() => {
-          window.location.replace(url);
-        }, 800);
-      } else if (res.data.code == 1) {
-        alert(res.data.errMessage);
-      }
-    });
+  // console.log(teacherId);
+  // console.log(name, number);
+  if (name == "" || number == "") {
+    alert("请将姓名、工号填写完整");
+  } else {
+    if (
+      confirm(
+        "请您确认填写的姓名和工号是否正确\n姓名：" + name + "\n工号：" + number
+      )
+    ) {
+      axios
+        .post("http://101.132.192.32/teacher/Login", {
+          teacherName: name,
+          teacherId: number,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.code == 0) {
+            alert("登录成功!");
+            document.getElementById("loginpage").style.opacity = "0";
+            let url = "./pages/loading.html" + "?" + "teacherId=" + number;
+            setTimeout(() => {
+              window.location.replace(url);
+            }, 800);
+          } else if (res.data.code == 1) {
+            alert(res.data.errMessage);
+          }
+        });
+    } else {
+      return false;
+    }
+  }
 }
 function ChangeTopimg1() {
   event.stopPropagation();
