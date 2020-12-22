@@ -13,7 +13,10 @@ function Tologin() {
   } else {
     if (
       confirm(
-        "请您确认\n填写的姓名和工号是否正确\n姓名：" + name + "\n工号：" + number
+        "请您确认\n填写的姓名和工号是否正确\n姓名：" +
+          name +
+          "\n工号：" +
+          number
       )
     ) {
       axios
@@ -201,15 +204,17 @@ function submit() {
     }
   }
   let Fen = right_number * 5;
-  // 上传分数
-  axios
-    .post("http://101.132.192.32/teacher/upScore", {
-      teacherId: teacherId,
-      score: Fen,
-    })
-    .then((res) => {
-      // console.log(res);
-    });
+  if (location.href.split("=")[2] != 0) {
+    // 上传分数
+    axios
+      .post("http://101.132.192.32/teacher/upScore", {
+        teacherId: teacherId,
+        score: Fen,
+      })
+      .then((res) => {
+        // console.log(res);
+      });
+  }
   document.getElementById("Fen").innerText = Fen;
   document.getElementById("right_number").innerText = right_number;
   if (error_question != " ") {
