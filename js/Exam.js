@@ -13,7 +13,7 @@ function Tologin() {
   } else {
     if (
       confirm(
-        "请您确认\n填写的姓名和工号是否正确\n姓名：" + name + "\n工号：" + number
+        "请您确认填写的姓名和工号是否正确\n姓名：" + name + "\n工号：" + number
       )
     ) {
       axios
@@ -32,6 +32,7 @@ function Tologin() {
             }, 800);
           } else if (res.data.code == 1) {
             alert(res.data.errMessage);
+            return false;
           }
         });
     } else {
