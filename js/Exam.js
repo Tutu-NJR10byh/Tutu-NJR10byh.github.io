@@ -80,8 +80,8 @@ function Show() {
       }
       if (m == 0 && s == 0) {
         submit();
-        alert("时间到，题目已自动提交！");
         clearInterval(timer);
+        alert("时间到，题目已自动提交！");
       }
       s--;
       if (s < 0) {
