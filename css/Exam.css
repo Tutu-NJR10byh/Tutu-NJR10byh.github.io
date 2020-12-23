@@ -25,10 +25,15 @@
   filter: blur(0px);
   transition: 1.5s;
 }
+.container .box .toptext {
+  margin-top: 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
 .container .box .user {
   border: 2px solid #1296db;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 30px;
   padding: 10px 10px 20px 10px;
 }
 .container .box .user input {
