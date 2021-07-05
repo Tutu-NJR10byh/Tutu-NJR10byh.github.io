@@ -3,45 +3,51 @@ var teacherId = "";
 var chance = "";
 // index.html
 function Tologin() {
-  let name = document.getElementById("name").value;
-  var number = document.getElementById("number").value;
-  teacherId = document.getElementById("number").value;
-  // console.log(teacherId);
-  // console.log(name, number);
-  if (name == "" || number == "") {
-    alert("请将姓名、工号填写完整");
-  } else {
-    if (
-      confirm(
-        "请您确认\n填写的姓名和工号是否正确\n姓名：" +
-          name +
-          "\n工号：" +
-          number
-      )
-    ) {
-      axios
-        .post("http://101.132.192.32/teacher/Login", {
-          teacherName: name,
-          teacherId: number,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data.code == 0) {
-            alert("登录成功!");
-            document.getElementById("loginpage").style.opacity = "0";
-            let url = "./pages/loading.html" + "?" + "teacherId=" + number;
-            setTimeout(() => {
-              window.location.replace(url);
-            }, 800);
-          } else if (res.data.code == 1) {
-            alert(res.data.errMessage);
-            return false;
-          }
-        });
-    } else {
-      return false;
-    }
-  }
+  alert("登录成功!");
+  document.getElementById("loginpage").style.opacity = "0";
+  let url = "./pages/loading.html" + "?" + "teacherId=" + number;
+  setTimeout(() => {
+    window.location.replace(url);
+  }, 800);
+  // let name = document.getElementById("name").value;
+  // var number = document.getElementById("number").value;
+  // teacherId = document.getElementById("number").value;
+  // // console.log(teacherId);
+  // // console.log(name, number);
+  // if (name == "" || number == "") {
+  //   alert("请将姓名、工号填写完整");
+  // } else {
+  //   if (
+  //     confirm(
+  //       "请您确认\n填写的姓名和工号是否正确\n姓名：" +
+  //       name +
+  //       "\n工号：" +
+  //       number
+  //     )
+  //   ) {
+  //     axios
+  //       .post("http://101.132.192.32/teacher/Login", {
+  //         teacherName: name,
+  //         teacherId: number,
+  //       })
+  //       .then((res) => {
+  //         console.log(res);
+  //         if (res.data.code == 0) {
+  //           alert("登录成功!");
+  //           document.getElementById("loginpage").style.opacity = "0";
+  //           let url = "./pages/loading.html" + "?" + "teacherId=" + number;
+  //           setTimeout(() => {
+  //             window.location.replace(url);
+  //           }, 800);
+  //         } else if (res.data.code == 1) {
+  //           alert(res.data.errMessage);
+  //           return false;
+  //         }
+  //       });
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }
 function ChangeTopimg1() {
   event.stopPropagation();
@@ -66,7 +72,7 @@ function Show() {
   document.getElementById("Outside").style.opacity = "1";
   // console.log("aaa");
   document.getElementById("time").style.opacity = "1";
-  var m = 30;
+  var m = 40;
   var s = 0;
   timer = setInterval(function () {
     if (m >= 0) {
@@ -124,67 +130,35 @@ function submit() {
   var rightArray = new Array();
   var right_number = 0; //计算答对的题数；
 
-  var aryAns = new Array(1, 2, 3, 1, 3, 4, 2, 2, 1, 3, 1, 2, 3, 2, 4, 2, 1, 1); //正确答案的数组
+  var aryAns = new Array(1, 1, 2, 4, 3, 1, 4, 1, 4, 4, 3, 1, 4, 4, 4, 3, 1, 1, 2, 1); //正确答案的数组
   var answer = new Array(
     "A",
-    "B",
-    "C",
     "A",
-    "C",
-    "D",
-    "B",
-    "B",
-    "A",
-    "C",
-    "A",
-    "B",
-    "C",
     "B",
     "D",
+    "C",
+    "A",
+    "D",
+    "A",
+    "D",
+    "D",
+    "C",
+    "A",
+    "D",
+    "D",
+    "D",
+    "C",
+    "A",
+    "A",
     "B",
-    "A",
-    "A",
-    "ABC",
-    "ABCE"
+    "A"
   );
   for (var i = 0; i < questionArray.length; i++) {
     if (Name(questionArray[i])) {
       alert("第 " + (i + 1) + " 题 " + " 您未作答 !!");
       return false;
     } else {
-      if (questionArray[i] != "Q19" && questionArray[i] != "Q20") {
-        resultArray[i] = Name1(questionArray[i]);
-      } else {
-        if (questionArray[i] == "Q19") {
-          let userresult = "";
-          let result1 = Name2(questionArray[i]);
-          console.log(result1.length);
-          for (var j = 0; j < result1.length; j++) {
-            userresult += result1[j];
-          }
-          console.log(userresult);
-          if (userresult == "123") {
-            right_number++;
-            rightArray[18] = 1;
-          } else {
-            rightArray[18] = 0;
-          }
-        } else if (questionArray[i] == "Q20") {
-          let userresult = "";
-          let result2 = Name2(questionArray[i]);
-          console.log(result2.length);
-          for (var j = 0; j < result2.length; j++) {
-            userresult += result2[j];
-          }
-          console.log(userresult);
-          if (userresult == "1235") {
-            right_number++;
-            rightArray[19] = 1;
-          } else {
-            rightArray[19] = 0;
-          }
-        }
-      }
+      resultArray[i] = Name1(questionArray[i]);
     }
   }
   $("#btn").attr("disabled", true);
@@ -212,7 +186,7 @@ function submit() {
         score: Fen,
       })
       .then((res) => {
-        // console.log(res);
+        console.log(res);
       });
   }
   document.getElementById("Fen").innerText = Fen;
@@ -250,16 +224,16 @@ function Name1(name) {
   return intHot;
 }
 // 多选
-function Name2(name) {
-  let temp = document.getElementsByName(name);
-  let result = new Array();
-  for (var i = 0; i < temp.length; i++) {
-    if (temp[i].checked) {
-      result.push(temp[i].value);
-    }
-  }
-  return result;
-}
+// function Name2(name) {
+//   let temp = document.getElementsByName(name);
+//   let result = new Array();
+//   for (var i = 0; i < temp.length; i++) {
+//     if (temp[i].checked) {
+//       result.push(temp[i].value);
+//     }
+//   }
+//   return result;
+// }
 // 返回
 function back() {
   console.log(teacherId);

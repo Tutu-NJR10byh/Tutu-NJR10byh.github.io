@@ -1,143 +1,166 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>监考人员测试</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
-    <style>
-      * {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
 
-      #Box {
-        /* border: 1px solid red; */
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: 0.8s;
-      }
-      #Box .inside {
-        /* border: 1px solid red; */
-        width: 80%;
-        height: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-      #Box .inside .text {
-        /* border: 1px solid red; */
-        height: 30px;
-        font-size: 20px;
-        font-weight: bold;
-      }
-      #Box .inside .text #chance {
-        color: red;
-      }
-      #Box .inside .text #history1,
-      #history2,
-      #history3 {
-        margin-top: 5px;
-        color: #999;
-        font-size: 16px;
-        opacity: 0;
-        transition: 1s;
-      }
-      #Box .inside .text #history1info,
-      #history2info,
-      #history3info {
-        color: #000;
-        font-weight: bold;
-      }
-      #Box .inside button {
-        width: 40%;
-        height: 50px;
-        font-size: 20px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        border: 0;
-        outline: none;
-        background-color: #17abe3;
-        border-radius: 5px;
-        padding: 0 0 0 2px;
-        color: #fff;
-      }
-    </style>
-  </head>
-  <body onload="show()">
-    <div id="Box">
-      <div class="inside">
-        <button onclick="start()">开始答题</button>
-        <div class="text">
-          <p>答题次数剩余: <span id="chance"></span> 次</p>
-          <p id="history1">最高分: <span id="history1info"></span> 分</p>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>南京邮电大学研究生培养基本规定测试</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+  <style>
+    * {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #Box {
+      /* border: 1px solid red; */
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: 0.8s;
+    }
+
+    #Box .inside {
+      /* border: 1px solid red; */
+      width: 80%;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #Box .inside .text {
+      /* border: 1px solid red; */
+      height: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #Box .inside .text #chance {
+      color: red;
+    }
+
+    #Box .inside .text #history1,
+    #history2,
+    #history3 {
+      margin-top: 5px;
+      color: #999;
+      font-size: 16px;
+      opacity: 0;
+      transition: 1s;
+    }
+
+    #Box .inside .text #history1info,
+    #history2info,
+    #history3info {
+      color: #000;
+      font-weight: bold;
+    }
+
+    #Box .inside button {
+      width: 40%;
+      height: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      border: 0;
+      outline: none;
+      background-color: #17abe3;
+      border-radius: 5px;
+      padding: 0 0 0 2px;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body onload="show()">
+  <div id="Box">
+    <div class="inside">
+      <button onclick="start()">开始答题</button>
+      <div class="text">
+        <p>答题次数剩余: <span id="chance"></span> 次</p>
+        <p id="history1">最高分: <span id="history1info"></span> 分</p>
       </div>
     </div>
-  </body>
-  <script>
-    var teacherId = "";
-    var chance = "";
-    function show() {
-      // console.log(location.href);
-      teacherId = location.href.split("=")[1];
-      axios
-        .post("http://101.132.192.32/teacher/queExamineCounter", {
-          teacherId: location.href.split("=")[1],
-        })
-        .then((res1) => {
-          chance = res1.data.data;
-          axios
-            .post("http://101.132.192.32/teacher/queScore", {
-              teacherId: teacherId,
-            })
-            .then((res2) => {
-              document.getElementById("history1info").innerHTML =
-                res2.data.data;
-              document.getElementById("history1").style.opacity = "1";
-            });
-          document.getElementById("chance").innerHTML = res1.data.data;
-        });
-      document.getElementById("Box").style.opacity = "1";
-    }
-    function start() {
-      if (chance == 0) {
-        if (confirm("您可以继续答题，但是成绩不会提交，要继续吗？")) {
-          document.getElementById("Box").style.opacity = "0";
-          setTimeout(() => {
-            let url =
-              "./Exam.html" +
-              "?" +
-              "teacherId=" +
-              teacherId +
-              "&" +
-              "chance=" +
-              chance;
-            window.location.replace(url);
-          }, 800);
-        } else {
-          return false;
-        }
-      } else {
-        document.getElementById("Box").style.opacity = "0";
-        setTimeout(() => {
-          let url =
-            "./Exam.html" +
-            "?" +
-            "teacherId=" +
-            teacherId +
-            "&" +
-            "chance=" +
-            chance;
-          window.location.replace(url);
-        }, 800);
-      }
-    }
-  </script>
+  </div>
+</body>
+<script>
+  var teacherId = "";
+  var chance = "";
+
+  function show() {
+    // console.log(location.href);
+    teacherId = location.href.split("=")[1];
+    axios
+      .post("http://101.132.192.32/teacher/queExamineCounter", {
+        teacherId: location.href.split("=")[1],
+      })
+      .then((res1) => {
+        chance = res1.data.data;
+        axios
+          .post("http://101.132.192.32/teacher/queScore", {
+            teacherId: teacherId,
+          })
+          .then((res2) => {
+            document.getElementById("history1info").innerHTML =
+              res2.data.data;
+            document.getElementById("history1").style.opacity = "1";
+          });
+        document.getElementById("chance").innerHTML = res1.data.data;
+      });
+    document.getElementById("Box").style.opacity = "1";
+  }
+
+  function start() {
+    document.getElementById("Box").style.opacity = "0";
+    setTimeout(() => {
+      let url =
+        "./Exam.html" +
+        "?" +
+        "teacherId=" +
+        teacherId +
+        "&" +
+        "chance=" +
+        chance;
+      window.location.replace(url);
+    }, 800);
+    // if (chance == 0) {
+    //   if (confirm("您可以继续答题，但是成绩不会提交，要继续吗？")) {
+    //     document.getElementById("Box").style.opacity = "0";
+    //     setTimeout(() => {
+    //       let url =
+    //         "./Exam.html" +
+    //         "?" +
+    //         "teacherId=" +
+    //         teacherId +
+    //         "&" +
+    //         "chance=" +
+    //         chance;
+    //       window.location.replace(url);
+    //     }, 800);
+    //   } else {
+    //     return false;
+    //   }
+    // } else {
+    //   document.getElementById("Box").style.opacity = "0";
+    //   setTimeout(() => {
+    //     let url =
+    //       "./Exam.html" +
+    //       "?" +
+    //       "teacherId=" +
+    //       teacherId +
+    //       "&" +
+    //       "chance=" +
+    //       chance;
+    //     window.location.replace(url);
+    //   }, 800);
+    // }
+  }
+</script>
+
 </html>
