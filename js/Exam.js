@@ -3,51 +3,45 @@ var teacherId = "";
 var chance = "";
 // index.html
 function Tologin() {
-  alert("登录成功!");
-  document.getElementById("loginpage").style.opacity = "0";
-  let url = "./pages/loading.html" + "?" + "teacherId=" + number;
-  setTimeout(() => {
-    window.location.replace(url);
-  }, 800);
-  // let name = document.getElementById("name").value;
-  // var number = document.getElementById("number").value;
-  // teacherId = document.getElementById("number").value;
-  // // console.log(teacherId);
-  // // console.log(name, number);
-  // if (name == "" || number == "") {
-  //   alert("请将姓名、工号填写完整");
-  // } else {
-  //   if (
-  //     confirm(
-  //       "请您确认\n填写的姓名和工号是否正确\n姓名：" +
-  //       name +
-  //       "\n工号：" +
-  //       number
-  //     )
-  //   ) {
-  //     axios
-  //       .post("http://101.132.192.32/teacher/Login", {
-  //         teacherName: name,
-  //         teacherId: number,
-  //       })
-  //       .then((res) => {
-  //         console.log(res);
-  //         if (res.data.code == 0) {
-  //           alert("登录成功!");
-  //           document.getElementById("loginpage").style.opacity = "0";
-  //           let url = "./pages/loading.html" + "?" + "teacherId=" + number;
-  //           setTimeout(() => {
-  //             window.location.replace(url);
-  //           }, 800);
-  //         } else if (res.data.code == 1) {
-  //           alert(res.data.errMessage);
-  //           return false;
-  //         }
-  //       });
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  let name = document.getElementById("name").value;
+  var number = document.getElementById("number").value;
+  teacherId = document.getElementById("number").value;
+  // console.log(teacherId);
+  // console.log(name, number);
+  if (name == "" || number == "") {
+    alert("请将姓名、工号填写完整");
+  } else {
+    if (
+      confirm(
+        "请您确认\n填写的姓名和工号是否正确\n姓名：" +
+        name +
+        "\n工号：" +
+        number
+      )
+    ) {
+      axios
+        .post("http://39.104.78.253/teacher/Login", {
+          teacherName: name,
+          teacherId: number,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.code == 0) {
+            alert("登录成功!");
+            document.getElementById("loginpage").style.opacity = "0";
+            let url = "./pages/loading.html" + "?" + "teacherId=" + number;
+            setTimeout(() => {
+              window.location.replace(url);
+            }, 800);
+          } else if (res.data.code == 1) {
+            alert(res.data.errMessage);
+            return false;
+          }
+        });
+    } else {
+      return false;
+    }
+  }
 }
 function ChangeTopimg1() {
   event.stopPropagation();
@@ -162,7 +156,7 @@ function submit() {
     }
   }
   $("#btn").attr("disabled", true);
-  for (var i = 0; i < questionArray.length - 2; i++) {
+  for (var i = 0; i < questionArray.length; i++) {
     // 单选
     if (aryAns[i] == resultArray[i]) {
       right_number++;
@@ -181,13 +175,18 @@ function submit() {
   if (location.href.split("=")[2] != 0) {
     // 上传分数
     axios
-      .post("http://101.132.192.32/teacher/upScore", {
+      .post("http://39.104.78.253/teacher/upScore", {
         teacherId: teacherId,
         score: Fen,
       })
       .then((res) => {
         console.log(res);
       });
+  }
+  if (Fen >= 80) {
+    document.getElementById("successpage").style.opacity = "1";
+  } else {
+    document.getElementById("lostpage").style.opacity = "1";
   }
   document.getElementById("Fen").innerText = Fen;
   document.getElementById("right_number").innerText = right_number;
@@ -242,4 +241,29 @@ function back() {
   setTimeout(() => {
     window.location.replace(url);
   }, 800);
+}
+
+// 下载证书
+function download() {
+  console.log(teacherId);
+  this.axios({
+    method: "post",
+    url: 'http://39.104.78.253/teacher/getCertificate',
+    responseType: 'blob',
+    data: { "teacherId": teacherId } //需要传的字段
+  }).then((res) => {
+    console.log(res);
+    let blob = new Blob([res.data], {
+      type: "application/pdf" //word文档为msword,pdf文档为pdf
+    });
+    let objectUrl = URL.createObjectURL(blob);
+    let link = document.createElement("a");
+    let fname = "结业证书"; //下载文件的名字
+    link.href = objectUrl;
+    link.setAttribute("download", fname);
+    document.body.appendChild(link);
+    link.click();
+  }).catch(() => {
+    alert("出错了，请联系管理员！")
+  })
 }

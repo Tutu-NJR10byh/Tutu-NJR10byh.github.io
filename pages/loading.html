@@ -97,16 +97,17 @@
     // console.log(location.href);
     teacherId = location.href.split("=")[1];
     axios
-      .post("http://101.132.192.32/teacher/queExamineCounter", {
+      .post("http://39.104.78.253/teacher/queExamineCounter", {
         teacherId: location.href.split("=")[1],
       })
       .then((res1) => {
         chance = res1.data.data;
         axios
-          .post("http://101.132.192.32/teacher/queScore", {
+          .post("http://39.104.78.253/teacher/queScore", {
             teacherId: teacherId,
           })
           .then((res2) => {
+            console.log(res2);
             document.getElementById("history1info").innerHTML =
               res2.data.data;
             document.getElementById("history1").style.opacity = "1";
@@ -129,37 +130,37 @@
         chance;
       window.location.replace(url);
     }, 800);
-    // if (chance == 0) {
-    //   if (confirm("您可以继续答题，但是成绩不会提交，要继续吗？")) {
-    //     document.getElementById("Box").style.opacity = "0";
-    //     setTimeout(() => {
-    //       let url =
-    //         "./Exam.html" +
-    //         "?" +
-    //         "teacherId=" +
-    //         teacherId +
-    //         "&" +
-    //         "chance=" +
-    //         chance;
-    //       window.location.replace(url);
-    //     }, 800);
-    //   } else {
-    //     return false;
-    //   }
-    // } else {
-    //   document.getElementById("Box").style.opacity = "0";
-    //   setTimeout(() => {
-    //     let url =
-    //       "./Exam.html" +
-    //       "?" +
-    //       "teacherId=" +
-    //       teacherId +
-    //       "&" +
-    //       "chance=" +
-    //       chance;
-    //     window.location.replace(url);
-    //   }, 800);
-    // }
+    if (chance == 0) {
+      if (confirm("您可以继续答题，但是成绩不会提交，要继续吗？")) {
+        document.getElementById("Box").style.opacity = "0";
+        setTimeout(() => {
+          let url =
+            "./Exam.html" +
+            "?" +
+            "teacherId=" +
+            teacherId +
+            "&" +
+            "chance=" +
+            chance;
+          window.location.replace(url);
+        }, 800);
+      } else {
+        return false;
+      }
+    } else {
+      document.getElementById("Box").style.opacity = "0";
+      setTimeout(() => {
+        let url =
+          "./Exam.html" +
+          "?" +
+          "teacherId=" +
+          teacherId +
+          "&" +
+          "chance=" +
+          chance;
+        window.location.replace(url);
+      }, 800);
+    }
   }
 </script>
 

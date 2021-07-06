@@ -89,7 +89,7 @@
             <input type="radio" name="Q4" value="4" /> D. 研究生学位论文的两种盲审包括学院盲审和导师组织的常规评审
           </label>
         </p>
-        <p>5. 下列有关硕士研究生学位论文开题报告考核工作，说法错误的是 ( )</p>
+        <p>5. 下列有关我校硕士研究生学位论文开题报告考核工作，说法错误的是 ( )</p>
         <p class="select">
           <label>
             <input type="radio" name="Q5" value="1" /> A. 一般在第三学期开展开题报告<br />
@@ -121,7 +121,7 @@
             <input type="radio" name="Q6" value="4" /> D. 培养条件
           </label>
         </p>
-        <p>7. 以下是江苏省研究生导师职业道德规范规定的导师“十不准”行为，除 ( )</p>
+        <p>7. 以下是江苏省研究生导师职业道德规范规定的导师“十不准”行为，除 ( ) 这条除外</p>
         <p class="select">
           <label>
             <input type="radio" name="Q7" value="1" /> A. 不准讲授违反我国法律法规与社会主义核心价值观的内容、发表违背党的路线方针政策及有损党和国家声誉的负面和消极言论。<br />
@@ -148,7 +148,7 @@
             <input type="radio" name="Q8" value="3" /> C. 育人推荐权<br />
           </label>
           <label>
-            <input type="radio" name="Q8" value="4" /> C. 管理建议权<br />
+            <input type="radio" name="Q8" value="4" /> D. 管理建议权<br />
           </label>
         </p>
         <p>9. 根据我校导师工作管理规定，导师对研究生的指导每月应不少于___次，指导一般通过现场研讨会、汇报会等形式进行。</p>
@@ -346,6 +346,13 @@
     </div>
     <button onclick="submit()" id="btn"><span id="btntext">交卷</span></button>
     <button onclick="back()" id="back">返回</button>
+    <div id="successpage">
+      <p>恭喜您通过了测试！</p>
+      <button onclick="download()" id="download">下载结业证书</button>
+    </div>
+    <div id="lostpage">
+      <p>很遗憾，您未通过本次考试！</p>
+    </div>
     <div id="result">
       <p style="font-size: 20px;font-weight: bold;width: 60%;" class="answer">本次得分: <span id="Fen"
           style="color: red;"></span> 分</p>
@@ -355,6 +362,7 @@
         错误的题目有(题号后为正确答案): <br /><span id="error_question" style="color:red"></span>
       </p>
     </div>
+
   </div>
 </body>
 
