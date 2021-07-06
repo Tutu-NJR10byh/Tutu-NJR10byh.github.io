@@ -29,7 +29,6 @@ function Tologin() {
           if (res.data.code == 0) {
             alert("登录成功!");
             document.getElementById("loginpage").style.opacity = "0";
-            document.getElementById("download").href = "http://39.104.78.253/teacher/getCertificate?teacherId=" + teacherId;
             let url = "./pages/loading.html" + "?" + "teacherId=" + number;
             setTimeout(() => {
               window.location.replace(url);
@@ -60,6 +59,7 @@ function Backtopimg() {
 // Exam.html
 function Show() {
   teacherId = location.href.split("=")[1].split("&")[0];
+  document.getElementById("download").href = "http://39.104.78.253/teacher/getCertificate?teacherId=" + teacherId;
   chance = location.href.split("=")[2];
   if (chance == 0) {
     document.getElementById("btntext").innerHTML = "查看答案";
