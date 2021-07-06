@@ -245,5 +245,5 @@ function back() {
 
 // 下载证书
 function download() {
-  window.location.href = "http://39.104.78.253/teacher/getCertificate";
+  window.location.href = "http://39.104.78.253/teacher/getCertificate?teacherId=20190116";
 }
