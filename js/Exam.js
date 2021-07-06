@@ -245,11 +245,5 @@ function back() {
 
 // 下载证书
 function download() {
-  console.log(teacherId);
-  axios.post("http://39.104.78.253/teacher/getCertificate", { "teacherId": teacherId })
-    .then((res) => {
-      console.log(res);
-    }).catch(() => {
-      alert("出错了，请联系管理员！")
-    })
+  window.location.href = "http://39.104.78.253/teacher/getCertificate";
 }
