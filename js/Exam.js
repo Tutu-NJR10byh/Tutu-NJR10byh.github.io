@@ -246,24 +246,10 @@ function back() {
 // 下载证书
 function download() {
   console.log(teacherId);
-  this.axios({
-    method: "post",
-    url: 'http://39.104.78.253/teacher/getCertificate',
-    responseType: 'blob',
-    data: { "teacherId": teacherId } //需要传的字段
-  }).then((res) => {
-    console.log(res);
-    let blob = new Blob([res.data], {
-      type: "application/pdf" //word文档为msword,pdf文档为pdf
-    });
-    let objectUrl = URL.createObjectURL(blob);
-    let link = document.createElement("a");
-    let fname = "结业证书"; //下载文件的名字
-    link.href = objectUrl;
-    link.setAttribute("download", fname);
-    document.body.appendChild(link);
-    link.click();
-  }).catch(() => {
-    alert("出错了，请联系管理员！")
-  })
+  axios.post("http://39.104.78.253/teacher/getCertificate", { "teacherId": teacherId })
+    .then((res) => {
+      console.log(res);
+    }).catch(() => {
+      alert("出错了，请联系管理员！")
+    })
 }
