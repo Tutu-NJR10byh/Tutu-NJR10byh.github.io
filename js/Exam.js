@@ -245,5 +245,22 @@ function back() {
 
 // 下载证书
 function download() {
-  window.location.href = "http://39.104.78.253/teacher/getCertificate?teacherId=20190116";
+  // window.location.href = "http://39.104.78.253/teacher/getCertificate";
+  $('#download').attr('href', 'http://39.104.78.253/teacher/getCertificate?teacherId=20190116')
+  // console.log(teacherId);
+  // axios.post("http://39.104.78.253/teacher/getCertificate", { "teacherId": teacherId })
+  //   .then((res) => {
+  //     console.log(res);
+  //     let blobUrl = Windows.URL.createObjectURL(res.data);
+  //     let title = '结业证书.pdf';
+  //     let a = document.createElement('a');
+  //     a.style.display = 'none';
+  //     a.download = title;
+  //     a.href = blobUrl;
+  //     a.click();
+  //     document.body.removeChild(a);
+  //   }).catch(() => {
+  //     alert("出错了，请联系管理员！")
+  //   })
 }
+
