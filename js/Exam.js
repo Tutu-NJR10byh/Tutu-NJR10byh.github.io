@@ -245,8 +245,11 @@ function back() {
 
 // 下载证书
 function download() {
+  axios.get("http://39.104.78.253/teacher/getCertificate?teacherId=20190116").then((res) => {
+    console.log(res);
+  });
   // window.location.href = "http://39.104.78.253/teacher/getCertificate";
-  $('#download').attr('href', 'http://39.104.78.253/teacher/getCertificate?teacherId=20190116')
+  // $('#download').attr('href', 'http://39.104.78.253/teacher/getCertificate?teacherId=20190116')
   // console.log(teacherId);
   // axios.post("http://39.104.78.253/teacher/getCertificate", { "teacherId": teacherId })
   //   .then((res) => {
@@ -264,3 +267,4 @@ function download() {
   //   })
 }
 
+// $('#download').attr('href', 'http://39.104.78.253/teacher/getCertificate?teacherId=20190116');
