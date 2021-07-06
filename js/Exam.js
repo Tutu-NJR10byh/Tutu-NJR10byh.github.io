@@ -59,7 +59,6 @@ function Backtopimg() {
 // Exam.html
 function Show() {
   teacherId = location.href.split("=")[1].split("&")[0];
-  document.getElementById("download").href = "http://39.104.78.253/teacher/getCertificate?teacherId=" + teacherId;
   chance = location.href.split("=")[2];
   if (chance == 0) {
     document.getElementById("btntext").innerHTML = "查看答案";
@@ -177,14 +176,15 @@ function submit() {
     // 上传分数
     axios
       .post("http://39.104.78.253/teacher/upScore", {
-        teacherId: teacherId,
-        score: Fen,
+        "teacherId": teacherId,
+        "score": Fen,
       })
       .then((res) => {
         console.log(res);
       });
   }
   if (Fen >= 80) {
+    document.getElementById("download").href = "http://39.104.78.253/teacher/getCertificate?teacherId=" + teacherId;
     document.getElementById("successpage").style.opacity = "1";
   } else {
     document.getElementById("lostpage").style.opacity = "1";
