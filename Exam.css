@@ -165,7 +165,7 @@
   margin: 10px 0 0 0;
   font-weight: bolder;
   color: red;
-  opacity: 1;
+  opacity: 0;
   transition: 1s;
 }
 
@@ -199,7 +199,7 @@
   justify-content: space-around;
   align-items: center;
   margin-bottom: 20px;
-  opacity: 1;
+  opacity: 0;
   transition: 3s;
 }
 

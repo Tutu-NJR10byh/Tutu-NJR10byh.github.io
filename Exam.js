@@ -29,7 +29,6 @@ function Tologin() {
           if (res.data.code == 0) {
             alert("登录成功!");
             document.getElementById("loginpage").style.opacity = "0";
-            document.getElementById("download").href = "http://39.104.78.253/teacher/getCertificate?teacherId=" + teacherId;
             let url = "./pages/loading.html" + "?" + "teacherId=" + number;
             setTimeout(() => {
               window.location.replace(url);
@@ -177,14 +176,15 @@ function submit() {
     // 上传分数
     axios
       .post("http://39.104.78.253/teacher/upScore", {
-        teacherId: teacherId,
-        score: Fen,
+        "teacherId": teacherId,
+        "score": Fen,
       })
       .then((res) => {
         console.log(res);
       });
   }
   if (Fen >= 80) {
+    document.getElementById("download").href = "http://39.104.78.253/teacher/getCertificate?teacherId=" + teacherId;
     document.getElementById("successpage").style.opacity = "1";
   } else {
     document.getElementById("lostpage").style.opacity = "1";
@@ -243,27 +243,3 @@ function back() {
     window.location.replace(url);
   }, 800);
 }
-
-// 下载证书
-// function download() {
-//   axios.get("http://39.104.78.253/teacher/getCertificate?teacherId=20190116").then((res) => {
-//     console.log(res);
-//   });
-//   // window.location.href = "http://39.104.78.253/teacher/getCertificate";
-//   // $('#download').attr('href', 'http://39.104.78.253/teacher/getCertificate?teacherId=20190116')
-//   // console.log(teacherId);
-//   // axios.post("http://39.104.78.253/teacher/getCertificate", { "teacherId": teacherId })
-//   //   .then((res) => {
-//   //     console.log(res);
-//   //     let blobUrl = Windows.URL.createObjectURL(res.data);
-//   //     let title = '结业证书.pdf';
-//   //     let a = document.createElement('a');
-//   //     a.style.display = 'none';
-//   //     a.download = title;
-//   //     a.href = blobUrl;
-//   //     a.click();
-//   //     document.body.removeChild(a);
-//   //   }).catch(() => {
-//   //     alert("出错了，请联系管理员！")
-//   //   })
-// }
