@@ -3,44 +3,44 @@ var teacherId = "";
 var chance = "";
 // index.html
 function Tologin() {
-  // alert("答题已结束！");
-  let name = document.getElementById("name").value;
-  var number = document.getElementById("number").value;
-  teacherId = document.getElementById("number").value;
-  if (name == "" || number == "") {
-    alert("请将姓名、工号填写完整");
-  } else {
-    if (
-      confirm(
-        "请您确认\n填写的姓名和工号是否正确\n姓名：" +
-        name +
-        "\n工号：" +
-        number
-      )
-    ) {
-      axios
-        .post("http://39.104.78.253/teacher/Login", {
-          teacherName: name,
-          teacherId: number,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data.code == 0) {
-            alert("登录成功!");
-            document.getElementById("loginpage").style.opacity = "0";
-            let url = "./pages/loading.html" + "?" + "teacherId=" + number;
-            setTimeout(() => {
-              window.location.replace(url);
-            }, 800);
-          } else if (res.data.code == 1) {
-            alert(res.data.errMessage);
-            return false;
-          }
-        });
-    } else {
-      return false;
-    }
-  }
+  alert("答题已结束！");
+  // let name = document.getElementById("name").value;
+  // var number = document.getElementById("number").value;
+  // teacherId = document.getElementById("number").value;
+  // if (name == "" || number == "") {
+  //   alert("请将姓名、工号填写完整");
+  // } else {
+  //   if (
+  //     confirm(
+  //       "请您确认\n填写的姓名和工号是否正确\n姓名：" +
+  //       name +
+  //       "\n工号：" +
+  //       number
+  //     )
+  //   ) {
+  //     axios
+  //       .post("http://39.104.78.253/teacher/Login", {
+  //         teacherName: name,
+  //         teacherId: number,
+  //       })
+  //       .then((res) => {
+  //         console.log(res);
+  //         if (res.data.code == 0) {
+  //           alert("登录成功!");
+  //           document.getElementById("loginpage").style.opacity = "0";
+  //           let url = "./pages/loading.html" + "?" + "teacherId=" + number;
+  //           setTimeout(() => {
+  //             window.location.replace(url);
+  //           }, 800);
+  //         } else if (res.data.code == 1) {
+  //           alert(res.data.errMessage);
+  //           return false;
+  //         }
+  //       });
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }
 function ChangeTopimg1() {
   event.stopPropagation();
